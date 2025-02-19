@@ -22,11 +22,11 @@ app.get("/", (req, res) => {
 
 // OAuth2 Callback Route
 app.get("/oauth/callback", async (req, res) => {
-    console.log("🔄 Received OAuth2 callback request:", req.query); // Logs incoming request
+    console.log("🔄 Received OAuth2 callback request:", req.query); // Logs all query parameters
 
     const code = req.query.code;
     if (!code) {
-        console.error("❌ No authorization code provided!", req.query);
+        console.error("❌ No authorization code provided! Full request:", req.query);
         return res.status(400).send("❌ No authorization code provided! Try again.");
     }
 
@@ -74,6 +74,11 @@ app.get("/oauth/callback", async (req, res) => {
         console.error("❌ OAuth2 Error:", error.response ? error.response.data : error.message);
         res.status(500).send("❌ Error authorizing your Discord account.");
     }
+});
+
+// Debug Route (Manually Test the Redirect)
+app.get("/debug", (req, res) => {
+    res.redirect(`/oauth/callback?code=TEST_CODE`);
 });
 
 // Start the Server
