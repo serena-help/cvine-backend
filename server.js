@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGO_URI, {
 }).then(() => console.log("✅ Connected to MongoDB"))
 .catch(err => console.error("❌ MongoDB Connection Error:", err));
 
-const User = require("./database/models/User");
+const User = require("./database/models/user");
 
 // OAuth2 Callback Route
 app.get("/oauth/callback", async (req, res) => {
