@@ -15,18 +15,18 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const User = require("./database/models/user");
 
-// Default Route (To prevent "Cannot GET /" errors)
+// Default Route (Prevents "Cannot GET /" errors)
 app.get("/", (req, res) => {
     res.send("🌐 Cvine OAuth2 Backend is Running!");
 });
 
 // OAuth2 Callback Route
 app.get("/oauth/callback", async (req, res) => {
-    console.log("🔄 Received OAuth2 callback request:", req.query);
+    console.log("🔄 Received OAuth2 callback request:", req.query); // Logs incoming request
 
     const code = req.query.code;
     if (!code) {
-        console.error("❌ No authorization code provided!");
+        console.error("❌ No authorization code provided!", req.query);
         return res.status(400).send("❌ No authorization code provided! Try again.");
     }
 
